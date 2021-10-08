@@ -86,14 +86,21 @@ describe('app routes', () => {
     });
     test('Reviews', async() => {
 
-      const expectation = 
+      const expectation = [{
+        'name': expect.any(String),
+        'image_url':  expect.any(String),
+        'price':  expect.any(String),
+        'rating': expect.any(Number),
+        'url':  expect.any(String)
+      }];
 
       
       const data = await fakeRequest(app)
-        .get('/weather?latitude=47.6062&longitude=122.3321')
+        .get('/reviews?latitude=47.6062&longitude=-122.3321')
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(data.body).toEqual(expectation);
+      expect(data.body).toEqual(expect.arrayContaining(expectation));
+    });
   });
 });
